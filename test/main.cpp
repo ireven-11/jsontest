@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include"player.h"
 #include "nlohmannJson.h"
 
 //hp描画関数
@@ -19,6 +20,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//jsonデータ用の構造体変数にデータを読み込み。templateの<>で型をjsonデータ用の構造体にする
 	JsonData jsonData = LoadData<JsonData>("data.json");
+	Player playerData = LoadData<Player>("playerData.json");
+
+	std::shared_ptr<Player> player = std::make_shared<Player>(playerData);
 
 	VECTOR position = VGet(jsonData.initUIPositionX, jsonData.initUIPositionY, 0.0);
 
@@ -31,6 +35,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		{
 			currentHp = 0;
 		}
+
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "HP:%d", player->getHP());
 	}
 
 	DxLib_End(); // DXライブラリ終了処理
