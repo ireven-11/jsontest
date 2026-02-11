@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//std::shared_ptr<Player> player = std::make_shared<Player>(LoadData<Player>("playerData.json"));
 
-	VECTOR position = VGet(jsonData.initUIPositionX, jsonData.initUIPositionY, 0.0);
+	VECTOR position = VGet(jsonData. initUIPositionX, jsonData. initUIPositionY, 0.0);
 
 	//ÉÅÉCÉìÉãÅ[Év
 	while (!ScreenFlip() && !ProcessMessage() && !ClearDrawScreen() && !CheckHitKey(KEY_INPUT_ESCAPE)) 

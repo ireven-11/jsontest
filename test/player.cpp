@@ -1,4 +1,5 @@
 #include"DxLib.h"
+#include"nlohmannJson.h"
 #include"player.h"
 
 
