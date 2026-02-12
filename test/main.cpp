@@ -22,9 +22,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	JsonData jsonData = LoadData<JsonData>("data.json");
 	Player playerData = LoadData<Player>("playerData.json");
 
+	//保存したデータを使ってプレイヤーを生成
 	std::shared_ptr<Player> player = std::make_shared<Player>(playerData);
 
+	//保存したデータをjson型に変換して使えるようにする
+	nlohmann::json data = playerData;
+
+	//読み込みデータを直で使ってプレイヤーを生成
 	//std::shared_ptr<Player> player = std::make_shared<Player>(LoadData<Player>("playerData.json"));
+
 
 	VECTOR position = VGet(jsonData. initUIPositionX, jsonData. initUIPositionY, 0.0);
 
@@ -38,7 +44,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			currentHp = 0;
 		}
 
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "HP:%d", player->getHP());
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "HP(playerのデータを使用):%d", player->getHP());
+
+		int hp = data["hp_max"];//直で値を使おうとすると未定義になるので一回代入する
+		DrawFormatString(0, 100, GetColor(255, 255, 255), "HP(jsonのデータを使用):%d", hp);	
 	}
 
 	DxLib_End(); // DXライブラリ終了処理

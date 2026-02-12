@@ -11,6 +11,7 @@ public:
 	const int getHP()const { return hp_; }
 
 	friend inline void from_json(const nlohmann::json& json, Player& player);
+	friend inline void to_json(nlohmann::json& json, const Player& player);
 
 private:
 
@@ -24,4 +25,11 @@ inline void from_json(const nlohmann::json& json, Player& player)
 	//at("")でデータの要素を指定してget_toで指定した要素の中身（数値など)をget_toの引数の変数に代入する
 	json.at("hp_max").get_to(player.hp_);
 	json.at("velocity").get_to(player.velocity_);
+}
+
+//任意の型変換(第一引数→nlohmannjson、第二引数→型変換したいデータ) 。jsonData = FOO(型変換したデータ)ができるようになる
+//jsonのコンストラクタが呼ばれた時に自動的によばれる
+inline void to_json(nlohmann::json& json, const Player& player)
+{
+	json = nlohmann::json{ {"hp_max", player.hp_} };
 }
